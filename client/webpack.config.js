@@ -3,6 +3,11 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+    devServer: {
+        proxy: {
+            "/getSummoner": "http://localhost:5000"
+        }
+    },
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname + "/build")
