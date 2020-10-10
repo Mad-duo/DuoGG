@@ -10,7 +10,7 @@ const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #7D8084;
+  background-color: #FADBBD;
   /* background-image: url('../images/background.png'),
   linear-gradient(
       to right,
