@@ -8,7 +8,7 @@ namespace APIServer.Riot
         [JsonProperty("leagueId")] public String LeagueId { get; set; }
         [JsonProperty("summonerId")] public String SummonrId { get; set; }
         [JsonProperty("summonerName")] public String SummonrName { get; set; }
-        [JsonProperty("queueType")] public String QueryType { get; set; }
+        [JsonProperty("queueType")] public String QueueType { get; set; }
         [JsonProperty("tier")] public String Tier { get; set; }
         [JsonProperty("rank")] public String Rank { get; set; }
         [JsonProperty("leaguePoints")] public Int32 LeaguePoints { get; set; }

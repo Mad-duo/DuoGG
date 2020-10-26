@@ -29,6 +29,9 @@ namespace APIServer.Controllers
                 if (String.IsNullOrEmpty(name))
                     throw new WebResponseException((int)WebResponseStatusCode.InvalidArgument, $"UserController.Login name argument is null or empty");
 
+                if (mSession != null && mSession.RiotUser != null)
+                    throw new WebResponseException((int)WebResponseStatusCode.AlreayLogin, $"UserController.Login alreay login user - {mSession.RiotUser}");
+
                 Summoner summoner = RiotApi.GetSummoner(name);
                 League[] leagues = RiotApi.GetLeaguesBySummonerId(summoner.Id);
                 RiotUser newUser = RiotUser.Create(summoner, leagues);
