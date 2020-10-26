@@ -5,7 +5,7 @@
     {
         Invalid = 512,
         InvalidArgument,
-        AlreayLogin,
+        AlreadyLoggedIn,
         AlreadyAdded,
         NotFound
     }
