@@ -10,18 +10,18 @@ namespace APIServer.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class LogInController : BaseController
+    public class AuthController : BaseController
     {
-        private readonly ILogger<LogInController> mLogger;
+        private readonly ILogger<AuthController> mLogger;
 
-        public LogInController(ISessionManager sessionManager, ILogger<LogInController> logger)
+        public AuthController(ISessionManager sessionManager, ILogger<AuthController> logger)
             : base(sessionManager)
         {
             mLogger = logger;
             mActionWhenSessionNotFound = ActionWhenSessionNotFound.Ignore;
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         public IActionResult Login(String name)
         {
             try
@@ -39,6 +39,32 @@ namespace APIServer.Controllers
                 CreateNewSession(newUser);
 
                 return new JsonResult(JsonConvert.SerializeObject(newUser));
+            }
+            catch (WebResponseException e)
+            {
+                mLogger.LogError(e.Message);
+
+                return e.HttpRequestResult();
+            }
+            catch (System.Exception e)
+            {
+                mLogger.LogError(e.Message);
+
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("Logout")]
+        public IActionResult Logout()
+        {
+            try
+            {
+                if (mSession.RiotUser == null)
+                    throw new System.Exception($"AuthController.Logout - Riot User is null");
+
+                mSessionManager.Delete(mSession.SessionId);
+
+                return Ok();
             }
             catch (WebResponseException e)
             {
