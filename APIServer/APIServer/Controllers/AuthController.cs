@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.Net;
 
 namespace APIServer.Controllers
 {
@@ -59,6 +60,9 @@ namespace APIServer.Controllers
         {
             try
             {
+                if (mSession == null)
+                    return StatusCode((int)HttpStatusCode.Unauthorized);
+
                 if (mSession.RiotUser == null)
                     throw new System.Exception($"AuthController.Logout - Riot User is null");
 
