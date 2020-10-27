@@ -7,9 +7,20 @@ namespace APIServer
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:5000",
+                                                          "https://localhost:5001");
+                                  });
+            });
+
             services.AddTransient<Session>();
 
             services.AddSingleton<ISessionManager>(new SessionManager(services.BuildServiceProvider()));
@@ -17,7 +28,6 @@ namespace APIServer
             services.AddControllers();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -25,9 +35,9 @@ namespace APIServer
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
