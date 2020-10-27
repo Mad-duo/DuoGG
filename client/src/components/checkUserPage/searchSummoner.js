@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Form, Button, Container, Col } from 'react-bootstrap';
+import { Form, Button, Container, Col, Spinner } from 'react-bootstrap';
 import styled from 'styled-components';
+import { PageState } from '../../enums'
 
 const SummonerForm = styled(Form)`
   padding-top: 40px;
@@ -30,15 +31,18 @@ class SearchSummoner extends React.Component {
   }
 
   handleSearch(event) {
-    console.log(this.state.value);
+    if (this.state.value === "")
+      return;
 
-    axios.post('/getSummoner', {
+    axios.post('/Auth/Login', {
       name: this.state.value
     })
       .then((response) => {
         console.log(response);
         this.setState({ summoner: response.data })
-      })
+      });
+
+    this.props.setPage(PageState.CheckPositionPage);
   }
 
   render() {

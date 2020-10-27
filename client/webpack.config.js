@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     devServer: {
         proxy: {
-            "/getSummoner": "http://localhost:5000"
+            "/Auth/Login": "http://localhost:5000"
         }
     },
     output: {

@@ -16,7 +16,7 @@ class CheckPositionPage extends React.Component {
       <PageContainer>
         <SelectPosition positions={positions} title='내 포지션' />
         <SelectPosition positions={positions} title='듀오 포지션' />
-        <MatchingButton />
+        <MatchingButton setPage={this.props.setPage}/>
       </PageContainer>
     );
   }

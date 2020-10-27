@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Container } from 'react-bootstrap';
 import styled from 'styled-components';
+import { PageState } from '../../enums'
 
 const StyledMatchingButton = styled(Button)`
   margin-top: 40px;
@@ -19,6 +20,7 @@ class MatchingButton extends React.Component {
   }
 
   onClickedMatchingButton() {
+    this.props.setPage(PageState.Matching);
     console.log('clicked!');
   }
 
